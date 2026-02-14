@@ -46,24 +46,35 @@ export default function Home() {
   };
 
   const handleUpload = async () => {
-    if (!file) return;
+  if (!file) return;
 
-    const formData = new FormData();
-    formData.append("file", file);
+  const formData = new FormData();
+  formData.append("file", file);
 
-    setLoading(true);
+  setLoading(true);
 
-    try {
-      await axios.post(`${BACKEND_URL}/upload`, formData);
-      alert("✅ File uploaded successfully!");
-      setFile(null);
-      fetchDocuments();
-    } catch {
-      alert("❌ Upload failed.");
-    }
+  try {
+    await axios.post(`${BACKEND_URL}/upload`, formData);
 
-    setLoading(false);
-  };
+    // ✅ Instant UI update (optimistic update)
+    setDocuments((prev) => {
+      if (prev.includes(file.name)) return prev;
+      return [...prev, file.name];
+    });
+
+    setFile(null);
+
+    // ✅ Optional: re-sync with backend
+    await fetchDocuments();
+
+  } catch (error) {
+    console.error(error);
+    alert("❌ Upload failed.");
+  }
+
+  setLoading(false);
+};
+
 
   const handleAsk = async () => {
     if (!question) return;
