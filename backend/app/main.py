@@ -9,14 +9,14 @@ app = FastAPI(title="Private Knowledge Q&A API")
 
 # Load CORS from environment
 allowed_origins = get_allowed_origins()
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins,
+    allow_origin_regex=r"https://private-knowledge-qa-.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 app.include_router(health.router)
 app.include_router(upload.router)
