@@ -25,6 +25,6 @@ def get_allowed_origins() -> List[str]:
     
     if not origins:
         logger.warning("⚠️ No ALLOWED_ORIGINS set. Defaulting to localhost.")
-        return ["http://localhost:3000"]
+        return ["http://localhost:3000","https://private-knowledge-qa-red.vercel.app/"]
     
     return [origin.strip() for origin in origins.split(",")]

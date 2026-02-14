@@ -1,26 +1,19 @@
+# app/embeddings.py
 
 from typing import List
-from sentence_transformers import SentenceTransformer
 from langchain_core.embeddings import Embeddings
-from .config import logger
-
-try:
-    logger.info("Loading embedding model...")
-    _model = SentenceTransformer("all-MiniLM-L6-v2")
-    logger.info("Embedding model loaded.")
-except Exception as e:
-    logger.error(f"Failed to load embedding model: {e}")
-    _model = None
+from fastembed import TextEmbedding
 
 
-class LocalHFEmbeddings(Embeddings):
+class FastEmbedEmbeddings(Embeddings):
+    def __init__(self):
+        self.model = TextEmbedding(
+            model_name="BAAI/bge-small-en-v1.5"
+        )
 
     def embed_documents(self, texts: List[str]) -> List[List[float]]:
-        if not _model:
-            raise ValueError("Model not loaded")
-        return _model.encode(texts).tolist()
+        embeddings = list(self.model.embed(texts))
+        return [e.tolist() for e in embeddings]
 
     def embed_query(self, text: str) -> List[float]:
-        if not _model:
-            raise ValueError("Model not loaded")
-        return _model.encode([text])[0].tolist()
+        return list(self.model.embed([text]))[0].tolist()
