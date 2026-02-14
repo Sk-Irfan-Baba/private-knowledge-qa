@@ -1,0 +1,80 @@
+# -----------------------
+# Python
+# -----------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+.env/
+.venv/
+env/
+
+# -----------------------
+# Environment Variables
+# -----------------------
+.env
+.env.*
+!.env.example
+
+# -----------------------
+# Logs
+# -----------------------
+*.log
+
+# -----------------------
+# Database / Storage
+# -----------------------
+chroma_db_storage/
+uploaded_docs/
+
+# -----------------------
+# Model Cache (optional but recommended)
+# -----------------------
+.cache/
+*.bin
+*.pt
+
+# Sentence Transformers cache
+C:\Users\*\AppData\Local\huggingface
+~/.cache/huggingface/
+
+# -----------------------
+# IDE
+# -----------------------
+.vscode/
+.idea/
+
+# -----------------------
+# OS Files
+# -----------------------
+.DS_Store
+Thumbs.db
+
+# -----------------------
+# Coverage / Testing
+# -----------------------
+.coverage
+htmlcov/
+.pytest_cache/
+
+# -----------------------
+# Uvicorn / Runtime
+# -----------------------
+*.sqlite3
+*.db
+
+
+# -----------------------
+# Node / Next.js
+# -----------------------
+node_modules/
+.next/
+out/
+dist/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
